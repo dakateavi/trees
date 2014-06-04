@@ -7,9 +7,9 @@ template <class T> class BinaryTree {
 
     struct node{
         node(const T& element):
-            left(nullptr),
-            right(nullptr),
-            element(element)
+            left{nullptr},
+            right{nullptr},
+            element{element}    
         {}
 
         node* left;
@@ -19,19 +19,38 @@ template <class T> class BinaryTree {
 
 public:
     BinaryTree():
-        root(nullptr)
+        root{nullptr}
     {}
 
     void insert(const T& added)
     {
-        root = new node{added};
+        if(root == nullptr)
+        {
+            root = new node(added);
+            return;
+        }
+        if(added < root->element)
+        {
+        root->right = new node(added);
+        }
     }
 
     T remove(const T& removed)
     {
-        T aux = root->element;
+        if(root->right != nullptr)
+        {
+            auto aux = root->right->element;
+
+            delete root->right;
+            root->right = nullptr;
+            return aux;
+        }
+
+
+        auto aux = root->element;
 
         delete root;
+        root = nullptr;
         return aux;
     }
 
