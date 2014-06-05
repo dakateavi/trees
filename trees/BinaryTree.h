@@ -29,10 +29,7 @@ public:
             root = new node(added);
             return;
         }
-        if(added < root->element)
-        {
         root->right = new node(added);
-        }
     }
 
     T remove(const T& removed)
