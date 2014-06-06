@@ -1,21 +1,21 @@
 #include <gtest/gtest.h>
-#include "trees/BinaryTree.h"
+#include "trees/BinarySearchTree.h"
 
 
-using trees::BinaryTree;
+using trees::BinarySearchTree;
 
-class BinaryTreeTest : public testing::Test {
+class BinarySearchTreeTest : public testing::Test {
 public:
-    BinaryTree<int> tree;
+    BinarySearchTree<int> tree;
 };
 
-TEST_F(BinaryTreeTest, addRemoveSingleton)
+TEST_F(BinarySearchTreeTest, addRemoveSingleton)
 {
     tree.insert(42);
     EXPECT_EQ(42, tree.remove(42));
 }
 
-TEST_F(BinaryTreeTest, addRemoveTwoElements)
+TEST_F(BinarySearchTreeTest, addRemoveTwoElements)
 {
     tree.insert(42);
     tree.insert(1812);
@@ -23,7 +23,7 @@ TEST_F(BinaryTreeTest, addRemoveTwoElements)
     EXPECT_EQ(42, tree.remove(42));
 }
 
-// TEST_F(BinaryTreeTest, addRightLeft)
+// TEST_F(BinarySearchTreeTest, addRightLeft)
 // {
 //     tree.insert(42);
 //     tree.insert(1812);

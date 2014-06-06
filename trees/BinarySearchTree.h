@@ -1,9 +1,9 @@
-#ifndef _BinaryTree_h_
-#define _BinaryTree_h_
+#ifndef _BinarySearchTree_h_
+#define _BinarySearchTree_h_
 
 namespace trees {
 
-template <class T> class BinaryTree {
+template <class T> class BinarySearchTree {
 
     struct node{
         node(const T& element):
@@ -18,7 +18,7 @@ template <class T> class BinaryTree {
     };
 
 public:
-    BinaryTree():
+    BinarySearchTree():
         root{nullptr}
     {}
 
