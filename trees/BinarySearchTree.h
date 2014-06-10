@@ -29,27 +29,57 @@ public:
             root = new node(added);
             return;
         }
-        root->right = new node(added);
+
+        if(added < root->element){
+            root->left = new node(added);
+        }
+        else {
+            root->right = new node(added);
+        }  
     }
 
-    T remove(const T& removed)
+    bool has(const T& item)
     {
-        if(root->right != nullptr)
-        {
-            auto aux = root->right->element;
-
-            delete root->right;
-            root->right = nullptr;
-            return aux;
+        if(root == nullptr) {
+            return false;
         }
 
+        node* aux = root;
 
-        auto aux = root->element;
+        if(item < aux->element) {
+            aux = aux->left;
+        }else{
+            if(aux->element == item){
+                return true;
+            }else{
+               aux = aux->right;
+               if(aux == nullptr){
+                return true;
+               }
 
-        delete root;
-        root = nullptr;
-        return aux;
+            }
+        }
+
+        return root->element == item;
     }
+
+    // T remove(const T& removed)
+    // {
+    //     if(root->right != nullptr)
+    //     {
+    //         auto aux = root->right->element;
+
+    //         delete root->right;
+    //         root->right = nullptr;
+    //         return aux;
+    //     }
+
+    //     auto aux = root->element;
+
+    //     delete root;
+    //     root = nullptr;
+    //     return aux;
+    // }
 
 private:
     node* root;
