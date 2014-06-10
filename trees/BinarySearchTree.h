@@ -22,6 +22,11 @@ public:
         root{nullptr}
     {}
 
+    node* rootForTest()
+    {
+        return root;
+    }
+
     void insert(const T& added)
     {
         if(root == nullptr)
@@ -38,6 +43,32 @@ public:
         }  
     }
 
+    void recursiveInsert(const T& added, node* _root)
+    {
+        if(added < _root->element)
+        {
+            if(_root->left == nullptr)
+            {
+                _root->left = new node(added);
+            }
+            else
+            {
+                recursiveInsert(added, _root->left);
+            }
+        }
+        if(added > _root->element)
+        {
+            if(_root->right == nullptr)
+            {
+                _root->right = new node(added);
+            }
+            else
+            {
+                recursiveInsert(added, _root->right);
+            }
+        }
+    }
+
     bool has(const T& item)
     {
         if(root == nullptr) {
@@ -46,21 +77,24 @@ public:
 
         node* aux = root;
 
-        if(item < aux->element) {
+        if(item == aux->element)
+        {
+            return true;
+        }
+        if(item < aux->element)
+        {
             aux = aux->left;
-        }else{
-            if(aux->element == item){
-                return true;
-            }else{
-               aux = aux->right;
-               if(aux == nullptr){
-                return true;
-               }
-
-            }
+        }
+        else
+        {
+            aux = aux->right;
+        }
+        if(aux == nullptr)
+        {
+            return false;
         }
 
-        return root->element == item;
+        return aux->element == item;
     }
 
     // T remove(const T& removed)
