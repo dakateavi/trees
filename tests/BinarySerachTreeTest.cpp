@@ -35,13 +35,13 @@ TEST_F(BinarySearchTreeTest, root)
 TEST_F(BinarySearchTreeTest, addRightLeft)
 {
     tree.insert(10);
-    tree.recursiveInsert(8, tree.rootForTest());
-    tree.recursiveInsert(20, tree.rootForTest());
-    tree.recursiveInsert(9, tree.rootForTest());
-    tree.recursiveInsert(6, tree.rootForTest());
-    tree.recursiveInsert(5, tree.rootForTest());
-    tree.recursiveInsert(42, tree.rootForTest());
-    tree.recursiveInsert(19, tree.rootForTest());
+    tree.insert(8);
+    tree.insert(20);
+    tree.insert(9);
+    tree.insert(6);
+    tree.insert(5);
+    tree.insert(42);
+    tree.insert(19);
     auto aux = tree.rootForTest();
     EXPECT_EQ(10, aux->element);
     EXPECT_EQ(8, aux->left->element);

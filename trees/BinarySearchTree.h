@@ -12,37 +12,6 @@ template <class T> class BinarySearchTree {
             element{element}    
         {}
 
-        node* left;
-        node* right;
-        T element;
-    };
-
-public:
-    BinarySearchTree():
-        root{nullptr}
-    {}
-
-    node* rootForTest()
-    {
-        return root;
-    }
-
-    void insert(const T& added)
-    {
-        if(root == nullptr)
-        {
-            root = new node(added);
-            return;
-        }
-
-        if(added < root->element){
-            root->left = new node(added);
-        }
-        else {
-            root->right = new node(added);
-        }  
-    }
-
     void recursiveInsert(const T& added, node* _root)
     {
         if(added < _root->element)
@@ -68,6 +37,34 @@ public:
             }
         }
     }
+
+        node* left;
+        node* right;
+        T element;
+    };
+
+public:
+    BinarySearchTree():
+        root{nullptr}
+    {}
+
+    node* rootForTest()
+    {
+        return root;
+    }
+
+    void insert(const T& added)
+    {
+        if(root == nullptr)
+        {
+            root = new node(added);
+            return;
+        }
+
+        root->recursiveInsert(added, root);
+    }
+
+   
 
     bool has(const T& item)
     {
