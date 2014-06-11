@@ -49,7 +49,26 @@ TEST_F(BinarySearchTreeTest, addRightLeft)
     auto aux2 = aux->right;
     aux = aux->left;
     EXPECT_EQ(6, aux->left->element);
+    EXPECT_EQ(5, aux->left->left->element);
     EXPECT_EQ(9, aux->right->element);
     EXPECT_EQ(19, aux2->left->element);
     EXPECT_EQ(42, aux2->right->element);
+}
+
+TEST_F(BinarySearchTreeTest, findLeftMost)
+{
+    tree.insert(10);
+    tree.insert(8);
+    tree.insert(20);
+    tree.insert(9);
+    tree.insert(6);
+    tree.insert(5);
+    tree.insert(42);
+    tree.insert(19);
+    auto aux = tree.findLeftmost(tree.rootForTest());
+    auto aux2 = tree.findLeftmost(tree.rootForTest()->right);
+    EXPECT_EQ(5, aux->element);
+    EXPECT_EQ(19, aux2->element);
+    //EXPECT_EQ(nullprt, findLeftmost(rootForTest()->right->right));
+
 }

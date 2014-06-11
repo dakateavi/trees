@@ -12,7 +12,7 @@ template <class T> class BinarySearchTree {
             element{element}    
         {}
 
-    void recursiveInsert(const T& added, node* _root)
+    void recursiveInsert(const T& added, node*& _root)
     {
         if(added < _root->element)
         {
@@ -48,9 +48,16 @@ public:
         root{nullptr}
     {}
 
-    node* rootForTest()
+    node*& rootForTest()
     {
         return root;
+    }
+
+    node* findLeftmost(node*& _root) {
+        node* curr = _root;
+        while (curr->left)
+            curr = curr->left;
+        return curr;
     }
 
     void insert(const T& added)
@@ -111,6 +118,33 @@ public:
     //     root = nullptr;
     //     return aux;
     // }
+
+    node* recursiveRemove(const T& removed, node*& _root) {
+        if (_root == nullptr)
+            return root;
+        if (removed < _root->element) {
+            root->_left = remove(removed, root->left);
+            return root;
+        }
+        if (removed > root->element) {
+            root->_right = remove(removed, root->right);
+            return root;
+        }
+        if (root->left && root->right) {
+            node* aux = find_leftmost(root->right);
+            root->element = aux->element;
+            root->right = remove(removed, root->right);
+            return root;
+        }
+        if (root->left)
+            return root->left;
+        if (root->right)
+            return root->right;
+        delete _root;
+        return 0;
+    }
+
+
 
 private:
     node* root;
