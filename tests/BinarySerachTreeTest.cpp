@@ -45,17 +45,15 @@ TEST_F(BinarySearchTreeTest, addRightLeft)
     auto aux = tree.rootForTest();
     EXPECT_EQ(10, aux->element);
     EXPECT_EQ(8, aux->left->element);
-    EXPECT_EQ(20, aux->right->element);
-    auto aux2 = aux->right;
-    aux = aux->left;
-    EXPECT_EQ(6, aux->left->element);
-    EXPECT_EQ(5, aux->left->left->element);
-    EXPECT_EQ(9, aux->right->element);
-    EXPECT_EQ(19, aux2->left->element);
-    EXPECT_EQ(42, aux2->right->element);
+    EXPECT_EQ(20, aux->right->element);;
+    EXPECT_EQ(6, aux->left->left->element);
+    EXPECT_EQ(5, aux->left->left->left->element);
+    EXPECT_EQ(9, aux->left->right->element);
+    EXPECT_EQ(19, aux->right->left->element);
+    EXPECT_EQ(42, aux->right->right->element);
 }
 
-TEST_F(BinarySearchTreeTest, findLeftMost)
+TEST_F(BinarySearchTreeTest, removeNodeWithoutSons)
 {
     tree.insert(10);
     tree.insert(8);
@@ -65,10 +63,80 @@ TEST_F(BinarySearchTreeTest, findLeftMost)
     tree.insert(5);
     tree.insert(42);
     tree.insert(19);
-    auto aux = tree.findLeftmost(tree.rootForTest());
-    auto aux2 = tree.findLeftmost(tree.rootForTest()->right);
-    EXPECT_EQ(5, aux->element);
-    EXPECT_EQ(19, aux2->element);
-    //EXPECT_EQ(nullprt, findLeftmost(rootForTest()->right->right));
+    tree.remove(5);
+    auto aux = tree.rootForTest();
+    EXPECT_EQ(10, aux->element);
+    EXPECT_EQ(8, aux->left->element);
+    EXPECT_EQ(20, aux->right->element);
+    EXPECT_EQ(6, aux->left->left->element);
+    EXPECT_EQ(9, aux->left->right->element);
+    EXPECT_EQ(19, aux->right->left->element);
+    EXPECT_EQ(42, aux->right->right->element);
+    EXPECT_FALSE(tree.has(5));
+}
+TEST_F(BinarySearchTreeTest, removeNodeWithOneSon)
+{
+    tree.insert(10);
+    tree.insert(8);
+    tree.insert(20);
+    tree.insert(9);
+    tree.insert(6);
+    tree.insert(5);
+    tree.insert(42);
+    tree.insert(19);
+    tree.remove(6);
+    auto aux = tree.rootForTest();
+    EXPECT_EQ(10, aux->element);
+    EXPECT_EQ(8, aux->left->element);
+    EXPECT_EQ(20, aux->right->element);
+    EXPECT_EQ(5, aux->left->left->element);
+    EXPECT_EQ(9, aux->left->right->element);
+    EXPECT_EQ(19, aux->right->left->element);
+    EXPECT_EQ(42, aux->right->right->element);
+    EXPECT_FALSE(tree.has(6));
+}
 
+TEST_F(BinarySearchTreeTest, removeNodeWithTwoSons)
+{
+    tree.insert(10);
+    tree.insert(8);
+    tree.insert(20);
+    tree.insert(9);
+    tree.insert(6);
+    tree.insert(5);
+    tree.insert(42);
+    tree.insert(19);
+    tree.remove(8);
+    auto aux = tree.rootForTest();
+    EXPECT_EQ(10, aux->element);
+    EXPECT_EQ(9, aux->left->element);
+    EXPECT_EQ(20, aux->right->element);
+    EXPECT_EQ(6, aux->left->left->element);
+    EXPECT_EQ(5, aux->left->left->left->element);
+    EXPECT_EQ(19, aux->right->left->element);
+    EXPECT_EQ(42, aux->right->right->element);
+    EXPECT_FALSE(tree.has(8));
+}
+TEST_F(BinarySearchTreeTest, removeNodeWithTwoSonsExtrmeModeAkaRemoveRoot)
+{
+    tree.insert(10);
+    tree.insert(8);
+    tree.insert(20);
+    tree.insert(9);
+    tree.insert(6);
+    tree.insert(5);
+    tree.insert(42);
+    tree.insert(19);
+    tree.insert(18);
+    tree.remove(10);
+    auto aux = tree.rootForTest();
+    EXPECT_EQ(18, aux->element);
+    EXPECT_EQ(8, aux->left->element);
+    EXPECT_EQ(20, aux->right->element);
+    EXPECT_EQ(6, aux->left->left->element);
+    EXPECT_EQ(5, aux->left->left->left->element);
+    EXPECT_EQ(9, aux->left->right->element);
+    EXPECT_EQ(19, aux->right->left->element);
+    EXPECT_EQ(42, aux->right->right->element);
+    EXPECT_FALSE(tree.has(10));
 }
