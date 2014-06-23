@@ -112,11 +112,9 @@ template <class T> class AvlTree {
 
     node* recursiveRemove(const T& removed, node*& _root) 
     {
-       // If we find a nullptr, the item does not exist in this tree.
 		if (_root == nullptr)
 			throw std::exception();
 
-		// The same of insertion works here. Find where the item must be, rebalance if needed.
 		else if (removed < _root->element) 
 			{
 			_root->left = recursiveRemove(removed, _root->left);
@@ -142,17 +140,14 @@ template <class T> class AvlTree {
 			}
 		}
 
-		// If root's value is equal to removed value, we found the node to remove.
 		else {
 
-			// Leaf case: just delete the actual node.
 			if (_root->left == nullptr && _root->right == nullptr) 
 			{
 				delete _root;
 				return nullptr;
 			}
 
-			// If there is only right child, replace the to-be-deleted node and delete it.
 			if (_root->left == nullptr) 
 			{
 				node* aux = _root->right;
@@ -160,7 +155,6 @@ template <class T> class AvlTree {
 				return aux;
 			}
 
-			// If there is only left child, replace the to-be-deleted node and delete it.
 			if (_root->right == nullptr) 
 			{
 				node* aux = _root->left;
@@ -168,13 +162,11 @@ template <class T> class AvlTree {
 				return aux;
 			}
 
-			// If there are both children, find the immediately next value, swap and retry to remove.
 			node* aux = findLeftmost(_root->right);
 			_root->element = aux->element;
 			_root->right = recursiveRemove(removed, _root->right);
 		}
 
-		// Recalculate the node height according to the removal.
 		--_root->_height;
 		return _root;
     }
